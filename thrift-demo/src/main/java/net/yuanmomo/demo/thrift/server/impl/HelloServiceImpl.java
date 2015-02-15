@@ -1,6 +1,6 @@
 package net.yuanmomo.demo.thrift.server.impl;
 
-import net.yuanmomo.demo.thrift.Hello.Iface;
+import net.yuanmomo.thrift.demo.Hello.Iface;
 
 import org.apache.thrift.TException;
 
@@ -25,11 +25,13 @@ public class HelloServiceImpl implements Iface {
        return null; 
    } 
    @Override 
-   public String helloString(String para) throws TException { 
-       return para; 
-   } 
-   @Override 
    public void helloVoid() throws TException { 
        System.out.println("Hello World"); 
-   } 
+   }
+
+	@Override
+	public String helloString(String para, int age, boolean male) throws TException {
+		System.out.println(para + " " + age +" " + male);
+		return para + " " + age +" " + male;
+	} 
 }

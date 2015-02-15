@@ -1,9 +1,9 @@
 package net.yuanmomo.demo.thrift.client;
 
-import net.yuanmomo.demo.thrift.Hello;
+import net.yuanmomo.thrift.demo.Hello;
 
 import org.apache.thrift.TException;
-import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TJSONProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
@@ -20,10 +20,13 @@ public class HelloServiceClient {
            TTransport transport = new TSocket("localhost", 8090); 
            transport.open(); 
            // 设置传输协议为 TBinaryProtocol 
-           TProtocol protocol = new TBinaryProtocol(transport); 
+//           TProtocol protocol = new TBinaryProtocol(transport); 
+           TProtocol protocol = new TJSONProtocol(transport); 
+//           TProtocol protocol = new TSimpleJSONProtocol (transport); 
            Hello.Client client = new Hello.Client(protocol); 
            // 调用服务的 helloVoid 方法
-           client.helloVoid(); 
+           client.helloString("我的年龄", 20, true);
+           
            transport.close(); 
        } catch (TTransportException e) { 
            e.printStackTrace(); 

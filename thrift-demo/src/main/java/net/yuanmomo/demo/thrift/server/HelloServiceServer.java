@@ -1,10 +1,11 @@
 package net.yuanmomo.demo.thrift.server;
 
-import net.yuanmomo.demo.thrift.Hello;
+
 import net.yuanmomo.demo.thrift.server.impl.HelloServiceImpl;
+import net.yuanmomo.thrift.demo.Hello;
 
 import org.apache.thrift.TProcessor;
-import org.apache.thrift.protocol.TBinaryProtocol;
+import org.apache.thrift.protocol.TJSONProtocol;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
@@ -32,9 +33,10 @@ public class HelloServiceServer {
 			TServerSocket serverTransport = new TServerSocket(SERVER_PORT);
 			TServer.Args tArgs = new TServer.Args(serverTransport);
 			tArgs.processor(tprocessor);
-			tArgs.protocolFactory(new TBinaryProtocol.Factory());
-			// tArgs.protocolFactory(new TCompactProtocol.Factory());
-			// tArgs.protocolFactory(new TJSONProtocol.Factory());
+//			tArgs.protocolFactory(new TBinaryProtocol.Factory());
+//			tArgs.protocolFactory(new TCompactProtocol.Factory());
+			tArgs.protocolFactory(new TJSONProtocol.Factory());
+//			tArgs.protocolFactory(new TSimpleJSONProtocol.Factory());
 			TServer server = new TSimpleServer(tArgs);
 			server.serve();
 		} catch (Exception e) {
